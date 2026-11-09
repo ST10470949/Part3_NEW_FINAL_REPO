@@ -19,7 +19,12 @@ Architecture: `Browser → RaceDay.MVC → RaceDay.API → SQL Server`, with ima
 - Entity Framework Core SQL Server data access and migrations.
 - Dockerfile for the MVC web application and GitHub Actions workflow for restore/build/test.
 
+## Requirements
 
+- .NET 8 SDK and Visual Studio 2022 (or equivalent).
+- SQL Server LocalDB for local development, or another SQL Server instance with a matching connection string.
+- Docker Desktop for the container step.
+- An Azure Storage account to test real image uploads.
 
 ## Configure the API database
 
