@@ -126,7 +126,12 @@ These tasks require your own Windows/Visual Studio account, Azure subscription, 
 7. **Video and ARC:** record a clear demo of the app, role-specific pages, API-backed operations, Azure upload, and Docker. Add the actual video URL to this README and submit the GitHub link/video/evidence on ARC as your lecturer requires.
 8. **Security review:** use a strong local secret for Azure, do not publish real credentials, and confirm the role checks are enforced by the API—not only hidden navigation links.
 
+## Local troubleshooting
 
+- If MVC reports that the API connection was refused, run `Test-NetConnection localhost -Port 5170` while the API is running. `TcpTestSucceeded` must be `True`.
+- If the port is false, the API is stopped or listening on a different profile/port. Check the API Output window for its `Now listening on:` line.
+- If the API starts but reports a database error, check the connection string and migrations before starting MVC. The MVC application must not connect directly to SQL Server.
+- If Azure upload fails while browsing events works, configure the Azure Storage connection string in the API and retry the upload.
 
 ## Docker Evidence
 <img width="1917" height="1013" alt="image" src="https://github.com/user-attachments/assets/bc048ffb-6efa-4bc0-b2b5-8fa5cf6f617e" /> 
