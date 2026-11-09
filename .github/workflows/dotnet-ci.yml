@@ -1,0 +1,36 @@
+name: Build and Test RaceDay (API + MVC)
+
+on:
+  push:
+    branches: [ "main", "part2-api", "part3-mvc" ]
+  pull_request:
+    branches: [ "main", "part2-api", "part3-mvc" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # RaceDay.sln references all three projects (API, MVC, Tests), so restoring
+      # and building the solution builds the MVC front end alongside the API -
+      # nothing MVC-specific needs to be added here separately.
+      - name: Restore dependencies
+        run: dotnet restore RaceDay.sln
+
+      - name: Build solution (API + MVC + Tests)
+        run: dotnet build RaceDay.sln --no-restore --configuration Release
+
+      - name: Run unit tests
+        run: dotnet test RaceDay.Tests/RaceDay.Tests.csproj --no-build --configuration Release --verbosity normal
+
+      # Proves the MVC Dockerfile itself is valid, on top of the plain build above.
+      - name: Build MVC Docker image
+        run: docker build -t raceday-mvc -f RaceDay.MVC/Dockerfile .

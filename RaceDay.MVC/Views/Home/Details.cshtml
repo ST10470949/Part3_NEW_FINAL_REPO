@@ -1,0 +1,100 @@
+@model EventDetailsViewModel
+@{
+    ViewData["Title"] = Model.Event.Name;
+}
+
+<div class="rd-detail-hero mb-4">
+    @if (!string.IsNullOrEmpty(Model.Event.BannerImageUrl))
+    {
+        <img src="@Model.Event.BannerImageUrl" alt="@Model.Event.Name" />
+    }
+    else
+    {
+        <div class="rd-card-banner-placeholder" style="height: 260px; border-radius: var(--rd-radius);">
+            <i class="bi bi-image"></i>
+        </div>
+    }
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <span class="rd-type-pill mb-2 d-inline-block">@Model.Event.EventType &middot; @Model.Event.DistanceKm km</span>
+        <h1 class="rd-heading">@Model.Event.Name</h1>
+        <p class="text-muted mb-4">
+            <i class="bi bi-geo-alt"></i> @Model.Event.Location
+            &nbsp;&middot;&nbsp;
+            <i class="bi bi-calendar-event"></i> @Model.Event.EventDate.ToString("dddd, dd MMMM yyyy")
+            @if (!string.IsNullOrEmpty(Model.Event.OrganiserName))
+            {
+                <text>&nbsp;&middot;&nbsp;<i class="bi bi-person-badge"></i> Hosted by @Model.Event.OrganiserName</text>
+            }
+        </p>
+
+        @if (!string.IsNullOrEmpty(Model.Event.Description))
+        {
+            <p>@Model.Event.Description</p>
+        }
+
+        <h4 class="rd-heading mt-4 mb-3">Categories</h4>
+
+        @if (!Model.Categories.Any())
+        {
+            <p class="text-muted">The Organiser hasn't added any categories for this event yet.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table rd-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Entry fee</th>
+                            <th>Spots</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model.Categories)
+                        {
+                            var alreadyEnrolled = Model.AlreadyEnrolledCategoryIds.Contains(category.CategoryID);
+                            <tr>
+                                <td class="fw-semibold">@category.Name</td>
+                                <td>R@category.EntryFee.ToString("0.00")</td>
+                                <td>@category.MaxParticipants max</td>
+                                <td class="text-end">
+                                    @if (alreadyEnrolled)
+                                    {
+                                        <span class="rd-badge rd-badge-confirmed">Already entered</span>
+                                    }
+                                    else if (Model.IsParticipant)
+                                    {
+                                        <form asp-controller="Participant" asp-action="Enrol" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="eventId" value="@Model.Event.EventID" />
+                                            <input type="hidden" name="categoryId" value="@category.CategoryID" />
+                                            <button type="submit" class="btn btn-rd-primary btn-sm">Enter this category</button>
+                                        </form>
+                                    }
+                                    else if (!Model.IsLoggedIn)
+                                    {
+                                        <a class="btn btn-rd-dark btn-sm" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Url.Action("Details", "Home", new { id = Model.Event.EventID })">Log in to enter</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+
+    <div class="col-lg-4">
+        <div class="rd-stat text-start">
+            <div class="rd-stat-label mb-2">Event summary</div>
+            <p class="mb-1"><i class="bi bi-flag"></i> @Model.Event.EventType</p>
+            <p class="mb-1"><i class="bi bi-signpost-split"></i> @Model.Event.DistanceKm km</p>
+            <p class="mb-1"><i class="bi bi-geo-alt"></i> @Model.Event.Location</p>
+            <p class="mb-0"><i class="bi bi-calendar-event"></i> @Model.Event.EventDate.ToString("dd MMM yyyy")</p>
+        </div>
+    </div>
+</div>

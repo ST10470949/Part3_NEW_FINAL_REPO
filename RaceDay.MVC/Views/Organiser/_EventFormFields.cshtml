@@ -1,0 +1,59 @@
+@model EventFormViewModel
+@* Shared by CreateEvent.cshtml and EditEvent.cshtml so the two forms don't drift apart. *@
+
+<div asp-validation-summary="ModelOnly" class="alert alert-danger rd-alert" role="alert"></div>
+
+<input type="hidden" asp-for="EventID" />
+
+<div class="mb-3">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" class="form-control" placeholder="e.g. Cape Town Cycle Tour" />
+    <span asp-validation-for="Name" class="text-danger small"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Description">Description</label>
+    <textarea asp-for="Description" class="form-control" rows="3" placeholder="Tell participants what to expect"></textarea>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label asp-for="EventDate"></label>
+        <input asp-for="EventDate" type="date" class="form-control" />
+        <span asp-validation-for="EventDate" class="text-danger small"></span>
+    </div>
+    <div class="col-md-6 mb-3">
+        <label asp-for="Location"></label>
+        <input asp-for="Location" class="form-control" placeholder="e.g. Durban" />
+        <span asp-validation-for="Location" class="text-danger small"></span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label asp-for="DistanceKm"></label>
+        <input asp-for="DistanceKm" type="number" step="0.1" class="form-control" />
+        <span asp-validation-for="DistanceKm" class="text-danger small"></span>
+    </div>
+    <div class="col-md-6 mb-3">
+        <label asp-for="EventType"></label>
+        <select asp-for="EventType" class="form-select">
+            <option value="Run">Run</option>
+            <option value="Walk">Walk</option>
+            <option value="Cycle">Cycle</option>
+        </select>
+        <span asp-validation-for="EventType" class="text-danger small"></span>
+    </div>
+</div>
+
+<div class="mb-4">
+    <label asp-for="BannerFile">Event banner</label>
+    @if (!string.IsNullOrEmpty(Model.ExistingBannerImageUrl))
+    {
+        <div class="mb-2">
+            <img src="@Model.ExistingBannerImageUrl" alt="Current banner" style="max-height:140px;border-radius:12px;" />
+        </div>
+    }
+    <input asp-for="BannerFile" type="file" class="form-control" accept=".jpg,.jpeg,.png" />
+    <div class="form-text">JPG or PNG, up to 10MB. Leave empty to keep the current banner.</div>
+</div>

@@ -1,0 +1,17 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Something went wrong";
+}
+
+<div class="rd-form-card text-center mx-auto" style="max-width: 560px;">
+    <i class="bi bi-emoji-frown display-3 text-danger mb-3"></i>
+    <h1 class="rd-heading">Something went wrong</h1>
+    <p class="text-muted">
+        @(Model?.FriendlyMessage ?? "The service is currently unavailable. Please try again later.")
+    </p>
+    @if (Model != null && Model.ShowRequestId)
+    {
+        <p class="text-muted small">Reference: <code>@Model.RequestId</code></p>
+    }
+    <a class="btn btn-rd-primary mt-2" asp-controller="Home" asp-action="Index">Back to Events</a>
+</div>

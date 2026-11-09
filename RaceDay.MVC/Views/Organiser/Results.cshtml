@@ -1,0 +1,62 @@
+@model List<CaptureResultViewModel>
+@{
+    ViewData["Title"] = "Capture Results";
+}
+
+<div class="mb-4">
+    <a class="text-muted small" asp-controller="Organiser" asp-action="Events"><i class="bi bi-arrow-left"></i> Back to my events</a>
+    <h1 class="rd-heading mt-2 mb-0">Results for @ViewBag.EventName</h1>
+    <p class="text-muted">Capture a finish time and position for each enrolled Participant once the race is done.</p>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="rd-form-card text-center text-muted py-5">
+        <i class="bi bi-stopwatch display-4 d-block mb-3"></i>
+        There's nobody enrolled for this event yet, so there's nothing to capture.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table rd-table align-middle">
+            <thead>
+                <tr>
+                    <th>Participant</th>
+                    <th>Category</th>
+                    <th>Finish time</th>
+                    <th>Position</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in Model)
+                {
+                    <tr>
+                        <td class="fw-semibold">@row.ParticipantName</td>
+                        <td>@row.CategoryName</td>
+                        @if (row.AlreadyCaptured)
+                        {
+                            <td colspan="3">
+                                <span class="rd-badge rd-badge-confirmed">Result already captured</span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td colspan="3">
+                                <form asp-controller="Organiser" asp-action="CaptureResult" method="post" class="d-flex gap-2 align-items-center flex-wrap">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="eventId" value="@ViewBag.EventId" />
+                                    <input type="hidden" name="enrolmentId" value="@row.EnrolmentID" />
+                                    <input type="text" name="finishTime" class="form-control form-control-sm" placeholder="hh:mm:ss" style="max-width:140px;" />
+                                    <input type="number" name="position" class="form-control form-control-sm" placeholder="Position" style="max-width:110px;" min="1" />
+                                    <button type="submit" class="btn btn-rd-primary btn-sm">Save result</button>
+                                </form>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

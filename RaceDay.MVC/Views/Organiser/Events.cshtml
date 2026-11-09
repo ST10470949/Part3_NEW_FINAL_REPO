@@ -1,0 +1,62 @@
+@model List<EventViewModel>
+@{
+    ViewData["Title"] = "My Events";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="rd-heading mb-0">My Events</h1>
+    <a class="btn btn-rd-primary" asp-controller="Organiser" asp-action="CreateEvent"><i class="bi bi-plus-lg"></i> New event</a>
+</div>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger rd-alert">@ViewBag.ErrorMessage</div>
+}
+
+@if (!Model.Any())
+{
+    <div class="rd-form-card text-center text-muted py-5">
+        <i class="bi bi-flag display-4 d-block mb-3"></i>
+        You haven't created any events yet.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table rd-table align-middle">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Type</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ev in Model)
+                {
+                    <tr>
+                        <td class="fw-semibold">@ev.Name</td>
+                        <td>@ev.EventDate.ToString("dd MMM yyyy")</td>
+                        <td>@ev.Location</td>
+                        <td><span class="rd-type-pill">@ev.EventType</span></td>
+                        <td class="text-end">
+                            <div class="d-flex gap-2 justify-content-end flex-wrap">
+                                <a class="btn btn-rd-outline-dark btn-sm" asp-controller="Organiser" asp-action="EditEvent" asp-route-id="@ev.EventID">Edit</a>
+                                <a class="btn btn-rd-outline-dark btn-sm" asp-controller="Organiser" asp-action="Categories" asp-route-eventId="@ev.EventID">Categories</a>
+                                <a class="btn btn-rd-outline-dark btn-sm" asp-controller="Organiser" asp-action="Enrolments" asp-route-eventId="@ev.EventID">Enrolments</a>
+                                <a class="btn btn-rd-outline-dark btn-sm" asp-controller="Organiser" asp-action="Results" asp-route-eventId="@ev.EventID">Results</a>
+                                <form asp-controller="Organiser" asp-action="DeleteEvent" asp-route-id="@ev.EventID" method="post" class="d-inline"
+                                      onsubmit="return confirm('Delete &quot;@ev.Name&quot;? This cannot be undone.');">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

@@ -1,0 +1,73 @@
+@model List<EventViewModel>
+@{
+    ViewData["Title"] = "Upcoming Events";
+}
+
+<div class="rd-hero">
+    <span class="rd-type-pill mb-3 d-inline-block">South African Road Running &middot; Walking &middot; Cycling</span>
+    <h1>Find your next race.</h1>
+    <p>Browse upcoming RaceDay events, pick a category, and enter in a couple of clicks.</p>
+</div>
+
+<form method="get" class="row g-2 align-items-end rd-form-card mb-4">
+    <div class="col-md-4">
+        <label>Location</label>
+        <input type="text" name="location" value="@ViewBag.Location" class="form-control" placeholder="e.g. Cape Town" />
+    </div>
+    <div class="col-md-3">
+        <label>Event type</label>
+        <select name="eventType" class="form-select">
+            <option value="">Any</option>
+            <option value="Run" selected="@("Run".Equals(ViewBag.EventType as string))">Run</option>
+            <option value="Walk" selected="@("Walk".Equals(ViewBag.EventType as string))">Walk</option>
+            <option value="Cycle" selected="@("Cycle".Equals(ViewBag.EventType as string))">Cycle</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label>Date</label>
+        <input type="date" name="date" value="@ViewBag.Date" class="form-control" />
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-rd-dark w-100"><i class="bi bi-search"></i> Filter</button>
+    </div>
+</form>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger rd-alert">@ViewBag.ErrorMessage</div>
+}
+else if (!Model.Any())
+{
+    <div class="text-center text-muted py-5">
+        <i class="bi bi-calendar-x display-4 d-block mb-3"></i>
+        No upcoming events match those filters yet.
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var ev in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <a asp-controller="Home" asp-action="Details" asp-route-id="@ev.EventID" class="text-decoration-none text-reset">
+                    <div class="rd-card">
+                        @if (!string.IsNullOrEmpty(ev.BannerImageUrl))
+                        {
+                            <img src="@ev.BannerImageUrl" class="rd-card-banner" alt="@ev.Name" />
+                        }
+                        else
+                        {
+                            <div class="rd-card-banner-placeholder"><i class="bi bi-image"></i></div>
+                        }
+                        <div class="rd-card-body">
+                            <span class="rd-type-pill mb-2 d-inline-block">@ev.EventType &middot; @ev.DistanceKm km</span>
+                            <h5 class="rd-heading mb-1">@ev.Name</h5>
+                            <p class="text-muted mb-1"><i class="bi bi-geo-alt"></i> @ev.Location</p>
+                            <p class="text-muted mb-0"><i class="bi bi-calendar-event"></i> @ev.EventDate.ToString("dd MMM yyyy")</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+}

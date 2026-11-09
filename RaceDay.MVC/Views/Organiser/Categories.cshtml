@@ -1,0 +1,93 @@
+@model CreateCategoryViewModel
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="mb-4">
+    <a class="text-muted small" asp-controller="Organiser" asp-action="Events"><i class="bi bi-arrow-left"></i> Back to my events</a>
+    <h1 class="rd-heading mt-2 mb-0">Categories for @Model.EventName</h1>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <h5 class="rd-heading mb-3">Existing categories</h5>
+
+        @if (!Model.ExistingCategories.Any())
+        {
+            <div class="rd-form-card text-center text-muted py-5">
+                <i class="bi bi-tags display-4 d-block mb-3"></i>
+                No categories yet - add the first one on the right.
+            </div>
+        }
+        else
+        {
+            @foreach (var category in Model.ExistingCategories)
+            {
+                <div class="rd-form-card mb-3">
+                    <form asp-controller="Organiser" asp-action="UpdateCategory" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="eventId" value="@Model.EventID" />
+                        <input type="hidden" name="categoryId" value="@category.CategoryID" />
+                        <div class="row g-3 align-items-end">
+                            <div class="col-md-5">
+                                <label class="form-label" for="name-@category.CategoryID">Category name</label>
+                                <input id="name-@category.CategoryID" name="name" value="@category.Name" class="form-control" maxlength="50" required />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label" for="fee-@category.CategoryID">Entry fee (R)</label>
+                                <input id="fee-@category.CategoryID" name="entryFee" value="@category.EntryFee.ToString(System.Globalization.CultureInfo.InvariantCulture)" type="number" min="0" step="0.01" class="form-control" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label" for="max-@category.CategoryID">Max participants</label>
+                                <input id="max-@category.CategoryID" name="maxParticipants" value="@category.MaxParticipants" type="number" min="1" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 mt-3">
+                            <button type="submit" class="btn btn-rd-primary btn-sm"><i class="bi bi-check2"></i> Save changes</button>
+                        </div>
+                    </form>
+                    <form asp-controller="Organiser" asp-action="DeleteCategory" method="post" class="mt-2"
+                          onsubmit="return confirm('Delete this category? This may be blocked if participants are already enrolled.');">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="eventId" value="@Model.EventID" />
+                        <input type="hidden" name="categoryId" value="@category.CategoryID" />
+                        <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Delete category</button>
+                    </form>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="col-lg-5">
+        <div class="rd-form-card">
+            <h5 class="rd-heading mb-3">Add a category</h5>
+
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger rd-alert" role="alert"></div>
+
+            <form asp-controller="Organiser" asp-action="Categories" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="EventID" />
+
+                <div class="mb-3">
+                    <label asp-for="Name">Category name</label>
+                    <input asp-for="Name" class="form-control" placeholder="e.g. 10km or Under 20" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="EntryFee"></label>
+                    <input asp-for="EntryFee" type="number" step="0.01" class="form-control" />
+                    <span asp-validation-for="EntryFee" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="MaxParticipants"></label>
+                    <input asp-for="MaxParticipants" type="number" class="form-control" />
+                    <span asp-validation-for="MaxParticipants" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn btn-rd-primary w-100">Add category</button>
+            </form>
+        </div>
+    </div>
+</div>

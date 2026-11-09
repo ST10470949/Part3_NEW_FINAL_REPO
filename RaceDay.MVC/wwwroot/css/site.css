@@ -1,0 +1,295 @@
+/* RaceDay brand theme - modern sporting look, red/charcoal/white on purpose
+   (no navy, no corporate blue). Everything routes through these variables so
+   the whole site stays consistent instead of drifting page to page. */
+:root {
+    --rd-red: #E5383B;
+    --rd-red-dark: #B2182C;
+    --rd-charcoal: #17171B;
+    --rd-charcoal-soft: #24242B;
+    --rd-grey: #6C7280;
+    --rd-grey-light: #E7E7EC;
+    --rd-off-white: #F7F7FA;
+    --rd-white: #FFFFFF;
+    --rd-success: #1E7E42;
+    --rd-success-bg: #E4F6EA;
+    --rd-amber: #B4690E;
+    --rd-amber-bg: #FCF0DC;
+    --rd-danger: #B2182C;
+    --rd-danger-bg: #FBE4E6;
+    --rd-radius: 16px;
+    --rd-shadow: 0 10px 30px rgba(23, 23, 27, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--rd-off-white);
+    color: var(--rd-charcoal);
+}
+
+h1, h2, h3, h4, h5, .rd-heading {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+a { color: var(--rd-red-dark); }
+a:hover { color: var(--rd-red); }
+
+/* ---------- Navbar ---------- */
+.rd-navbar {
+    background: var(--rd-charcoal);
+    padding: 0.85rem 0;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+}
+.rd-brand {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--rd-white) !important;
+}
+.rd-brand span { color: var(--rd-red); }
+.rd-navbar .nav-link {
+    color: rgba(255,255,255,0.82) !important;
+    font-weight: 500;
+    padding: 0.4rem 0.75rem !important;
+}
+.rd-navbar .nav-link:hover { color: var(--rd-white) !important; }
+
+.rd-user-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--rd-white);
+    font-size: 0.9rem;
+    background: rgba(255,255,255,0.08);
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+}
+.rd-avatar-sm {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.rd-role-pill {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    letter-spacing: 0.03em;
+}
+.rd-role-organiser { background: var(--rd-red); color: var(--rd-white); }
+.rd-role-participant { background: #3D3D46; color: var(--rd-white); }
+
+/* ---------- Buttons ---------- */
+.btn-rd-primary {
+    background: var(--rd-red);
+    border: none;
+    color: var(--rd-white);
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.5rem 1.25rem;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+.btn-rd-primary:hover { background: var(--rd-red-dark); color: var(--rd-white); transform: translateY(-1px); }
+
+.btn-rd-outline {
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    color: var(--rd-white);
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.45rem 1.1rem;
+}
+.btn-rd-outline:hover { border-color: var(--rd-white); color: var(--rd-white); background: rgba(255,255,255,0.08); }
+
+.btn-rd-dark {
+    background: var(--rd-charcoal);
+    color: var(--rd-white);
+    border: none;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.5rem 1.25rem;
+}
+.btn-rd-dark:hover { background: var(--rd-charcoal-soft); color: var(--rd-white); }
+
+/* ---------- Cards ---------- */
+.rd-card {
+    background: var(--rd-white);
+    border-radius: var(--rd-radius);
+    box-shadow: var(--rd-shadow);
+    border: 1px solid rgba(23,23,27,0.05);
+    overflow: hidden;
+    height: 100%;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.rd-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(23,23,27,0.14); }
+
+.rd-card-banner {
+    height: 170px;
+    width: 100%;
+    object-fit: cover;
+    background: linear-gradient(135deg, var(--rd-charcoal), #3a3a44);
+}
+.rd-card-banner-placeholder {
+    height: 170px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--rd-charcoal), #3a3a44);
+    color: rgba(255,255,255,0.55);
+    font-size: 2.2rem;
+}
+.rd-card-body { padding: 1.25rem; }
+
+.rd-type-pill {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--rd-red);
+    color: var(--rd-white);
+}
+
+/* ---------- Hero ---------- */
+.rd-hero {
+    background: radial-gradient(circle at top left, #2b2b32, var(--rd-charcoal) 60%);
+    color: var(--rd-white);
+    border-radius: var(--rd-radius);
+    padding: 3rem 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--rd-shadow);
+}
+.rd-hero h1 { font-size: 2.4rem; }
+.rd-hero p { color: rgba(255,255,255,0.75); max-width: 620px; }
+
+/* ---------- Status badges ---------- */
+.rd-badge {
+    display: inline-block;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+.rd-badge-confirmed { background: var(--rd-success-bg); color: var(--rd-success); }
+.rd-badge-pending { background: var(--rd-amber-bg); color: var(--rd-amber); }
+.rd-badge-cancelled { background: var(--rd-danger-bg); color: var(--rd-danger); }
+
+/* ---------- Forms ---------- */
+.rd-form-card {
+    background: var(--rd-white);
+    border-radius: var(--rd-radius);
+    box-shadow: var(--rd-shadow);
+    padding: 2rem;
+}
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 1.5px solid var(--rd-grey-light);
+    padding: 0.55rem 0.9rem;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--rd-red);
+    box-shadow: 0 0 0 0.2rem rgba(229, 56, 59, 0.15);
+}
+label { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; }
+
+/* ---------- Stat tiles (dashboard) ---------- */
+.rd-stat {
+    background: var(--rd-white);
+    border-radius: var(--rd-radius);
+    box-shadow: var(--rd-shadow);
+    padding: 1.5rem;
+    text-align: center;
+}
+.rd-stat .rd-stat-value {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--rd-red);
+}
+.rd-stat .rd-stat-label {
+    color: var(--rd-grey);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* ---------- Table polish ---------- */
+.rd-table thead { background: var(--rd-charcoal); color: var(--rd-white); }
+.rd-table thead th { border: none; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.02em; }
+.rd-table tbody tr { background: var(--rd-white); }
+.rd-table { border-radius: var(--rd-radius); overflow: hidden; box-shadow: var(--rd-shadow); }
+
+/* ---------- Alerts ---------- */
+.rd-alert { border: none; border-radius: 12px; font-weight: 500; }
+
+/* ---------- Footer ---------- */
+.rd-footer {
+    background: var(--rd-charcoal);
+    color: rgba(255,255,255,0.7);
+    margin-top: 4rem;
+    font-size: 0.9rem;
+}
+
+/* ---------- Profile avatar ---------- */
+.rd-avatar-lg {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--rd-white);
+    box-shadow: var(--rd-shadow);
+}
+
+/* ---------- Outline button for use on light card backgrounds ---------- */
+.btn-rd-outline-dark {
+    background: transparent;
+    border: 1.5px solid var(--rd-grey-light);
+    color: var(--rd-charcoal);
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.45rem 1.1rem;
+}
+.btn-rd-outline-dark:hover {
+    border-color: var(--rd-charcoal);
+    background: var(--rd-off-white);
+    color: var(--rd-charcoal);
+}
+
+/* ---------- Register page role choice ---------- */
+.rd-role-choice {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid var(--rd-grey-light);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+.rd-role-choice:has(input:checked) {
+    border-color: var(--rd-red);
+    background: rgba(229, 56, 59, 0.06);
+}
+
+/* ---------- Event details banner ---------- */
+.rd-detail-hero img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: var(--rd-radius);
+    box-shadow: var(--rd-shadow);
+}
+
+/* ---------- Profile picture upload preview ---------- */
+.rd-avatar-upload {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}

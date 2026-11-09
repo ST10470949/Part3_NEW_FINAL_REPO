@@ -1,0 +1,27 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+
+## Visual Studio
+.vs/
+*.dbmdl
+
+## Rider / VS Code
+.idea/
+.vscode/
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Local settings that shouldn't be committed
+RaceDay.API/appsettings.Local.json
+RaceDay.MVC/appsettings.Local.json
+
+## Docker
+**/bin/Docker/
+
+## User secrets are per-machine, never committed
+**/secrets.json

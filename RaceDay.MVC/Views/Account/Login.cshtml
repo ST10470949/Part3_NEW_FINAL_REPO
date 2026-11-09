@@ -1,0 +1,38 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="rd-form-card">
+            <h1 class="rd-heading mb-1">Welcome back</h1>
+            <p class="text-muted mb-4">Log in to enter events, manage your races, or check your results.</p>
+
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger rd-alert" role="alert"></div>
+
+            <form asp-controller="Account" asp-action="Login" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="ReturnUrl" />
+
+                <div class="mb-3">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" placeholder="you@example.com" autocomplete="email" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" autocomplete="current-password" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn btn-rd-primary w-100">Log in</button>
+            </form>
+
+            <p class="text-center text-muted mt-4 mb-0">
+                New to RaceDay? <a asp-controller="Account" asp-action="Register">Create an account</a>
+            </p>
+        </div>
+    </div>
+</div>

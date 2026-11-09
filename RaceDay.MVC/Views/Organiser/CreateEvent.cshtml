@@ -1,0 +1,20 @@
+@model EventFormViewModel
+@{
+    ViewData["Title"] = "Create Event";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="rd-form-card">
+            <h1 class="rd-heading mb-1">Create an event</h1>
+            <p class="text-muted mb-4">Fill in the details below - you can add categories once the event is saved.</p>
+
+            <form asp-controller="Organiser" asp-action="CreateEvent" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                @await Html.PartialAsync("_EventFormFields", Model)
+                <button type="submit" class="btn btn-rd-primary">Create event</button>
+                <a class="btn btn-rd-outline-dark" asp-controller="Organiser" asp-action="Events">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

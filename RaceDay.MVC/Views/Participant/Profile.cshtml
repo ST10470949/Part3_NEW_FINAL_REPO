@@ -1,0 +1,58 @@
+@model ProfileViewModel
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="rd-form-card">
+            <div class="rd-avatar-upload mb-4">
+                @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+                {
+                    <img src="@Model.ProfilePictureUrl" alt="@Model.FullName" class="rd-avatar-lg" />
+                }
+                else
+                {
+                    <div class="rd-avatar-lg d-flex align-items-center justify-content-center bg-light text-muted">
+                        <i class="bi bi-person-fill fs-1"></i>
+                    </div>
+                }
+                <div>
+                    <h1 class="rd-heading mb-1">@Model.FullName</h1>
+                    <span class="rd-role-pill rd-role-@Model.Role.ToLower()">@Model.Role</span>
+                    <p class="text-muted small mt-2 mb-0">Member since @Model.CreatedAt.ToString("MMMM yyyy")</p>
+                </div>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger rd-alert" role="alert"></div>
+
+            <form asp-controller="Participant" asp-action="Profile" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="UserID" />
+                <input type="hidden" asp-for="Role" />
+                <input type="hidden" asp-for="CreatedAt" />
+                <input type="hidden" asp-for="ProfilePictureUrl" />
+
+                <div class="mb-3">
+                    <label asp-for="FullName"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="ProfilePictureFile"></label>
+                    <input asp-for="ProfilePictureFile" type="file" class="form-control" accept=".jpg,.jpeg,.png" />
+                    <div class="form-text">JPG or PNG. Leave empty to keep your current picture.</div>
+                </div>
+
+                <button type="submit" class="btn btn-rd-primary">Save changes</button>
+            </form>
+        </div>
+    </div>
+</div>

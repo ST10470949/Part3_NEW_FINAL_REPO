@@ -1,0 +1,65 @@
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Sign up";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+        <div class="rd-form-card">
+            <h1 class="rd-heading mb-1">Create your account</h1>
+            <p class="text-muted mb-4">Sign up as an Organiser to run events, or a Participant to enter them.</p>
+
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger rd-alert" role="alert"></div>
+
+            <form asp-controller="Account" asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label asp-for="FullName"></label>
+                    <input asp-for="FullName" class="form-control" placeholder="Your full name" />
+                    <span asp-validation-for="FullName" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" placeholder="you@example.com" autocomplete="email" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" class="form-control" autocomplete="new-password" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="ConfirmPassword"></label>
+                        <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label>I'm signing up as</label>
+                    <div class="d-flex gap-3 mt-1">
+                        <label class="form-check-label rd-role-choice flex-fill">
+                            <input class="form-check-input me-2" type="radio" asp-for="Role" value="Participant" checked="@(Model.Role == "Participant")" />
+                            Participant &mdash; I want to enter races
+                        </label>
+                        <label class="form-check-label rd-role-choice flex-fill">
+                            <input class="form-check-input me-2" type="radio" asp-for="Role" value="Organiser" checked="@(Model.Role == "Organiser")" />
+                            Organiser &mdash; I want to run events
+                        </label>
+                    </div>
+                    <span asp-validation-for="Role" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn btn-rd-primary w-100">Create account</button>
+            </form>
+
+            <p class="text-center text-muted mt-4 mb-0">
+                Already have an account? <a asp-controller="Account" asp-action="Login">Log in</a>
+            </p>
+        </div>
+    </div>
+</div>
