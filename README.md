@@ -10,7 +10,14 @@ This is the combined RaceDay solution. `RaceDay.API` is the Part 2 REST API, ext
 
 Architecture: `Browser → RaceDay.MVC → RaceDay.API → SQL Server`, with image uploads sent by MVC to the API and the API storing the images in Azure Blob Storage.
 
+## Main features
 
+- Registration, login, logout, session-based sign-in, and Organiser/Participant navigation.
+- Organiser dashboard, event create/edit/delete, event banner upload, category management, enrolment viewing, and result entry.
+- Participant event browsing and details, enrolment, own enrolments/results, profile editing, and profile picture upload.
+- API-side Azure Blob Storage integration; MVC sends the file to the API and displays the URL returned by the API.
+- Entity Framework Core SQL Server data access and migrations.
+- Dockerfile for the MVC web application and GitHub Actions workflow for restore/build/test.
 
 ## Requirements
 
