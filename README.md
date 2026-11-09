@@ -56,6 +56,25 @@ dotnet user-secrets set "AzureBlobStorage:ContainerName" "raceday-images" --proj
 
 Do not put the real connection string in source control. The Azure integration can only be fully verified with a valid Azure Storage account.
 
+## Run locally
+
+Open `RaceDay.sln` in Visual Studio. For the first run, start the API and MVC separately. This avoids a Visual Studio launch-profile error that can occur when the solution's saved multi-project startup profile is used.
+
+Terminal 1 — start the API (HTTP profile):
+
+```powershell
+dotnet run --project RaceDay.API/RaceDay.API.csproj --launch-profile http
+```
+
+The API HTTP profile listens on port `5170` (Swagger: `http://localhost:5170/swagger`) and binds to all host interfaces so Docker Desktop can reach it. The MVC app's default API URL is `http://localhost:5170/`. For Docker, the Dockerfile overrides this with `http://host.docker.internal:5170/`.
+
+Terminal 2 — start MVC:
+
+```powershell
+dotnet run --project RaceDay.MVC/RaceDay.MVC.csproj --launch-profile http
+```
+
+MVC is configured for `http://localhost:5220` (HTTP profile) or `https://localhost:7221` (HTTPS profile). Port `7220` was assigned to MVC's HTTPS profile, not the API; it has been moved to `7221` to avoid the reported conflict. Keep the API terminal running while starting MVC in a second terminal.
 
 
 ## Build and test
