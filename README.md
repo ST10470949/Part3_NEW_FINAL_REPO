@@ -108,9 +108,7 @@ Workflow: `.github/workflows/dotnet-ci.yml`. It restores, builds, and tests the 
 ## Video presentation:
 https://youtu.be/n5jUNEWpsac
 
-## Part 2 reference documentation
 
-The Part 2 database SQL, ERD, endpoint plan, and implementation notes are included under `Documentation/Part2/` to show how the Part 3 UI maps to the API and database design.
 
 
 ## Manual actions still required before submission
