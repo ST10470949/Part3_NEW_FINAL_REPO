@@ -106,7 +106,11 @@ Workflow: `.github/workflows/dotnet-ci.yml`. It restores, builds, and tests the 
 <img width="1917" height="1016" alt="image" src="https://github.com/user-attachments/assets/dca65426-5eee-4dd0-9c4b-032ffe1b2448" />
 
 ## Video presentation:
+### Explaining everything but the pictures were not showing properly:
 https://youtu.be/n5jUNEWpsac
+
+### Fixed the Uploading of Event Banners and Profile Picture upload:
+https://youtu.be/nRItKgB4cKU
 
 ## Part 2 reference documentation
 
