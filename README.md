@@ -134,3 +134,8 @@ These tasks require your own Windows/Visual Studio account, Azure subscription, 
 ## Docker Evidence
 <img width="1917" height="1013" alt="image" src="https://github.com/user-attachments/assets/bc048ffb-6efa-4bc0-b2b5-8fa5cf6f617e" /> 
 raceday-mvc
+
+## Azure Blob Evidence
+### Link: https://portal.azure.com/#home
+<img width="1917" height="915" alt="image" src="https://github.com/user-attachments/assets/31bfe7bf-c6b4-4718-9232-e1fe585e945c" />
+<img width="1912" height="923" alt="image" src="https://github.com/user-attachments/assets/dc765ddf-32fa-43e1-957a-7771a9784442" />
