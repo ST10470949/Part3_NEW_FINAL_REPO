@@ -4,7 +4,11 @@
 **Student:** Abongile Lathitha Manqana  
 **Student number:** ST10470949
 
+## What this solution contains
 
+This is the combined RaceDay solution. `RaceDay.API` is the Part 2 REST API, extended for Part 3 image uploads. `RaceDay.MVC` is the Part 3 web interface. `RaceDay.Tests` contains API unit tests. The MVC project calls the API over HTTP; it does **not** connect directly to SQL Server and does not duplicate API database/business logic.
+
+Architecture: `Browser → RaceDay.MVC → RaceDay.API → SQL Server`, with image uploads sent by MVC to the API and the API storing the images in Azure Blob Storage.
 
 ## Main features
 
