@@ -145,3 +145,6 @@ raceday-mvc
 ### Link: https://portal.azure.com/#home
 <img width="1917" height="915" alt="image" src="https://github.com/user-attachments/assets/31bfe7bf-c6b4-4718-9232-e1fe585e945c" />
 <img width="1912" height="923" alt="image" src="https://github.com/user-attachments/assets/dc765ddf-32fa-43e1-957a-7771a9784442" />
+
+## New Website Design
+<img width="861" height="668" alt="image" src="https://github.com/user-attachments/assets/127692bb-6eb7-4362-95f9-7889739186b0" />
