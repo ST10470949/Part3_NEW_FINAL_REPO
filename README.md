@@ -147,4 +147,5 @@ raceday-mvc
 <img width="1912" height="923" alt="image" src="https://github.com/user-attachments/assets/dc765ddf-32fa-43e1-957a-7771a9784442" />
 
 ## New Website Design
+Changed the previous design to a modern design
 <img width="861" height="668" alt="image" src="https://github.com/user-attachments/assets/127692bb-6eb7-4362-95f9-7889739186b0" />
