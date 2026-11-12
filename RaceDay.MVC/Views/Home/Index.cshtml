@@ -3,71 +3,127 @@
     ViewData["Title"] = "Upcoming Events";
 }
 
-<div class="rd-hero">
-    <span class="rd-type-pill mb-3 d-inline-block">South African Road Running &middot; Walking &middot; Cycling</span>
-    <h1>Find your next race.</h1>
-    <p>Browse upcoming RaceDay events, pick a category, and enter in a couple of clicks.</p>
-</div>
+<section class="rd-hero" aria-labelledby="home-title">
+    <div class="rd-hero-copy">
+        <div class="rd-hero-kicker"><span class="rd-live-dot"></span> South African sport, your way</div>
+        <h1 id="home-title">Find your next <span>finish line.</span></h1>
+        <p>From your first 5K to your next big ride, find an event, choose your pace, and make race day yours.</p>
 
-<form method="get" class="row g-2 align-items-end rd-form-card mb-4">
-    <div class="col-md-4">
-        <label>Location</label>
-        <input type="text" name="location" value="@ViewBag.Location" class="form-control" placeholder="e.g. Cape Town" />
-    </div>
-    <div class="col-md-3">
-        <label>Event type</label>
-        <select name="eventType" class="form-select">
-            <option value="">Any</option>
-            <option value="Run" selected="@("Run".Equals(ViewBag.EventType as string))">Run</option>
-            <option value="Walk" selected="@("Walk".Equals(ViewBag.EventType as string))">Walk</option>
-            <option value="Cycle" selected="@("Cycle".Equals(ViewBag.EventType as string))">Cycle</option>
-        </select>
-    </div>
-    <div class="col-md-3">
-        <label>Date</label>
-        <input type="date" name="date" value="@ViewBag.Date" class="form-control" />
-    </div>
-    <div class="col-md-2">
-        <button type="submit" class="btn btn-rd-dark w-100"><i class="bi bi-search"></i> Filter</button>
-    </div>
-</form>
+        <div class="rd-hero-actions">
+            <a class="btn btn-rd-lime" href="#events">Explore events <i class="bi bi-arrow-down-right"></i></a>
+            <span class="rd-hero-proof"><i class="bi bi-stars"></i> Every pace belongs here</span>
+        </div>
 
-@if (ViewBag.ErrorMessage != null)
-{
-    <div class="alert alert-danger rd-alert">@ViewBag.ErrorMessage</div>
-}
-else if (!Model.Any())
-{
-    <div class="text-center text-muted py-5">
-        <i class="bi bi-calendar-x display-4 d-block mb-3"></i>
-        No upcoming events match those filters yet.
+        <div class="rd-hero-meta" aria-label="Available event types">
+            <span><i class="bi bi-person-running"></i> Run</span>
+            <span><i class="bi bi-person-walking"></i> Walk</span>
+            <span><i class="bi bi-bicycle"></i> Ride</span>
+            <span><i class="bi bi-geo-alt"></i> Across South Africa</span>
+        </div>
     </div>
-}
-else
-{
-    <div class="row g-4">
-        @foreach (var ev in Model)
-        {
-            <div class="col-md-6 col-lg-4">
-                <a asp-controller="Home" asp-action="Details" asp-route-id="@ev.EventID" class="text-decoration-none text-reset">
-                    <div class="rd-card">
-                        @if (!string.IsNullOrEmpty(ev.BannerImageUrl))
-                        {
-                            <img src="@ev.BannerImageUrl" class="rd-card-banner" alt="@ev.Name" />
-                        }
-                        else
-                        {
-                            <div class="rd-card-banner-placeholder"><i class="bi bi-image"></i></div>
-                        }
-                        <div class="rd-card-body">
-                            <span class="rd-type-pill mb-2 d-inline-block">@ev.EventType &middot; @ev.DistanceKm km</span>
-                            <h5 class="rd-heading mb-1">@ev.Name</h5>
-                            <p class="text-muted mb-1"><i class="bi bi-geo-alt"></i> @ev.Location</p>
-                            <p class="text-muted mb-0"><i class="bi bi-calendar-event"></i> @ev.EventDate.ToString("dd MMM yyyy")</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        }
+
+    <div class="rd-hero-art" aria-hidden="true">
+        <span class="rd-art-caption">YOUR NEXT CHAPTER STARTS HERE</span>
+        <svg class="rd-route-art" viewBox="0 0 420 300" role="presentation">
+            <path class="rd-route-track" d="M66 174c10-64 68-112 147-108 75 4 139 51 141 113 2 57-55 99-132 99-84 0-166-35-156-104Z" />
+            <path class="rd-route-line" d="M66 174c10-64 68-112 147-108 75 4 139 51 141 113 2 57-55 99-132 99-84 0-166-35-156-104Z" />
+            <circle class="rd-route-marker" cx="67" cy="174" r="12" />
+            <path class="rd-route-flag" d="M306 71v37h34l-9-10 9-10h-34" />
+            <circle cx="205" cy="146" r="7" fill="#fff" opacity=".92" />
+            <path d="m205 158-15 27 16 9 10-14 14 11 8-8-22-22-11-3Z" fill="#d9f273" />
+            <path d="m202 160-19 8-10-12-7 6 14 19 27-9m16 11 14 18 12-3-17-25" fill="none" stroke="#d9f273" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="m205 194-16 27 8 4 20-25m5-4 7 29 9-1-1-35" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="m188 221-11 4m59-1 13 3" stroke="#e94b43" stroke-width="7" stroke-linecap="round" />
+        </svg>
+        <div class="rd-art-stamp"><span>01 / 03</span><strong>MOVE<br />YOUR WAY</strong></div>
     </div>
-}
+</section>
+
+<section id="events" class="rd-event-section" aria-labelledby="events-heading">
+    <div class="rd-section-head">
+        <div>
+            <span class="rd-section-kicker">THE START LINE</span>
+            <h2 id="events-heading">Find an event</h2>
+            <p>Pick a place, a date, or the kind of challenge you’re after.</p>
+        </div>
+        <div class="rd-count"><strong>@Model.Count</strong><span>events available</span></div>
+    </div>
+
+    <form method="get" class="row g-3 align-items-end rd-search-panel" aria-label="Filter events">
+        <div class="col-md-4">
+            <label for="event-location"><i class="bi bi-geo-alt"></i> Location</label>
+            <input id="event-location" type="text" name="location" value="@ViewBag.Location" class="form-control" placeholder="e.g. Cape Town" />
+        </div>
+        <div class="col-md-3">
+            <label for="event-type"><i class="bi bi-activity"></i> Event type</label>
+            <select id="event-type" name="eventType" class="form-select">
+                <option value="">Any activity</option>
+                <option value="Run" selected="@("Run".Equals(ViewBag.EventType as string))">Run</option>
+                <option value="Walk" selected="@("Walk".Equals(ViewBag.EventType as string))">Walk</option>
+                <option value="Cycle" selected="@("Cycle".Equals(ViewBag.EventType as string))">Cycle</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="event-date"><i class="bi bi-calendar3"></i> Date</label>
+            <input id="event-date" type="date" name="date" value="@ViewBag.Date" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-rd-dark w-100"><i class="bi bi-search"></i> Search</button>
+        </div>
+    </form>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger rd-alert" role="alert">@ViewBag.ErrorMessage</div>
+    }
+    else if (!Model.Any())
+    {
+        <div class="rd-empty-state">
+            <span class="rd-empty-icon"><i class="bi bi-calendar2-week"></i></span>
+            <h3>No events found just yet</h3>
+            <p>Try another location or clear a filter to see more upcoming events.</p>
+            <a class="btn btn-rd-outline-dark" asp-controller="Home" asp-action="Index">Clear filters</a>
+        </div>
+    }
+    else
+    {
+        <div class="rd-results-bar">
+            <h3>Upcoming events</h3>
+            <span>Showing @Model.Count event@(Model.Count == 1 ? "" : "s")</span>
+        </div>
+        <div class="row g-4">
+            @foreach (var ev in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <a asp-controller="Home" asp-action="Details" asp-route-id="@ev.EventID" class="rd-event-link">
+                        <article class="rd-card">
+                            <div class="rd-card-media">
+                                @if (!string.IsNullOrEmpty(ev.BannerImageUrl))
+                                {
+                                    <img src="@ev.BannerImageUrl" class="rd-card-banner" alt="@ev.Name" />
+                                }
+                                else
+                                {
+                                    <div class="rd-card-banner-placeholder"><i class="bi bi-image"></i></div>
+                                }
+                                <span class="rd-card-date"><i class="bi bi-calendar3"></i> @ev.EventDate.ToString("dd MMM")</span>
+                            </div>
+                            <div class="rd-card-body">
+                                <div class="rd-card-topline">
+                                    <span class="rd-type-pill">@ev.EventType</span>
+                                    <span class="rd-event-distance">@ev.DistanceKm km</span>
+                                </div>
+                                <h3 class="rd-heading">@ev.Name</h3>
+                                <div class="rd-card-meta">
+                                    <span><i class="bi bi-geo-alt"></i> @ev.Location</span>
+                                    <span><i class="bi bi-calendar-event"></i> @ev.EventDate.ToString("dddd, dd MMMM yyyy")</span>
+                                </div>
+                                <div class="rd-card-footer"><span>View event details</span><span class="rd-card-arrow"><i class="bi bi-arrow-up-right"></i></span></div>
+                            </div>
+                        </article>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+</section>

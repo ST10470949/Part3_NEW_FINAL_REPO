@@ -15,10 +15,10 @@
     <header>
         <nav class="navbar navbar-expand-lg rd-navbar sticky-top">
             <div class="container">
-                <a class="navbar-brand rd-brand" asp-controller="Home" asp-action="Index">
+                <a class="navbar-brand rd-brand" asp-controller="Home" asp-action="Index" aria-label="RaceDay home">
                     <i class="bi bi-lightning-charge-fill"></i> Race<span>Day</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#rdNav">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#rdNav" aria-controls="rdNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="rdNav">
@@ -79,7 +79,7 @@
         </nav>
     </header>
 
-    <div class="container mt-4">
+    <div class="container mt-4 rd-alert-stack" aria-live="polite">
         @if (TempData["SuccessMessage"] != null)
         {
             <div class="alert alert-success rd-alert" role="alert">
@@ -94,7 +94,7 @@
         }
     </div>
 
-    <main class="container mb-5">
+    <main class="container mb-5 rd-main">
         @RenderBody()
     </main>
 
