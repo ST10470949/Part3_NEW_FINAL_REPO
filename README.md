@@ -103,7 +103,8 @@ Then browse to `http://localhost:8080`. Ensure the API is running on host port `
 ## GitHub Actions and submission evidence
 
 Workflow: `.github/workflows/dotnet-ci.yml`. It restores, builds, and tests the solution. Check the **Actions** tab for the actual run status and save a screenshot of the successful run under `Documentation/ci-green-build.png`. Add your actual video URL below before submitting.
-<img width="1917" height="1016" alt="image" src="https://github.com/user-attachments/assets/dca65426-5eee-4dd0-9c4b-032ffe1b2448" />
+<img width="1903" height="912" alt="image" src="https://github.com/user-attachments/assets/bd3912eb-c5ed-4bd1-9788-66267e5d5a46" />
+
 
 ## Video presentation:
 ### Explaining everything but the pictures were not showing properly:
